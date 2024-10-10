@@ -378,7 +378,7 @@ function checkPowerupCollision(bird, powerup) {
 
 function activatePowerup(type) {
     gameConfig.activePowerup = type;
-    gameConfig.powerupDuration = type === 'immunity' ? 300 : 30; // 5 seconds for immunity, 3.33 seconds for swoosh
+    gameConfig.powerupDuration = type === 'immunity' ? 300 : 30; // 5 seconds for immunity
     
     if (type === 'swoosh') {
         score += 5; // swoosh adds 5 points
