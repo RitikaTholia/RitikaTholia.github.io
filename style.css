@@ -14,9 +14,10 @@ body {
     width: 480px;
     height: 640px;
 }
+
 .game-title {
-    margin: 60px 0 2rem; /* Add top margin to push it down */
-    text-align: center; /* Center the title, if desired */
+    margin: 60px 0 2rem;
+    text-align: center;
 }
 
 .game-title h1 {
@@ -106,8 +107,8 @@ body {
     color: #4ec5ed;
 }
 
-#customize-text{
-    margin-top:50px;
+#customize-text {
+    margin-top: 50px;
 }
 
 .bundle-section {
@@ -120,11 +121,6 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
-}
-
-.bundle-section {
-    margin-top: 15px;
-    width: 100%;
 }
 
 .bundle-option {
@@ -171,7 +167,16 @@ body {
     flex: 1 1 200px;
 }
 
-.character-option, .background-option, .pillar-option, .music-option {
+#bird-options,
+#background-options,
+#pillar-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.option-group div {
     display: inline-block;
     margin: 5px;
     cursor: pointer;
@@ -181,30 +186,20 @@ body {
     transition: all 0.3s ease;
 }
 
-.character-option.selected, .background-option.selected, 
-.pillar-option.selected, .music-option.selected {
+.option-group div.selected {
     border-color: #4ec5ed;
     background: rgba(78, 197, 237, 0.2);
 }
 
-.character-option img, .background-option img, 
-.pillar-option img, .music-option img {
-    width: 50px;
+.option-group img {
+    width: 60px;
     height: 50px;
     object-fit: contain;
 }
 
-h2, h3, h4 {
+h2,
+h3,
+h4 {
     color: #4ec5ed;
     margin-bottom: 15px;
-}
-#bird-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing as needed */
-    justify-content: center; /* Center align options */
-}
-img {
-    width: 70px;
-    height: 70px; 
 }
