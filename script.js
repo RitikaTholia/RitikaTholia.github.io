@@ -46,8 +46,8 @@ const gameAssets = {
         { id: 'pillar4', src: 'cyber tower.png', name: 'Cyber Tower' },
     ],
     music: [
-            { id: 'mus1', src: 'https://drive.google.com/file/d/1fkPUlZ03iF91oLTRrqrJA0qeL7YqcfnY/view?usp=drive_link', name: 'Flying Through Clouds', img: 'a day sky.png' },
-            { id: 'mus2', src: 'https://drive.google.com/file/d/1v8bRutfsyQydjH2YGutUI4jfUOfPmrQu/view?usp=sharing', name: 'Whispering Shadows', img: 'a night sky.png' },
+            { id: 'mus1', src: 'Flying Through Clouds.mp3', name: 'Flying Through Clouds', img: 'a day sky.png' },
+            { id: 'mus2', src: 'Whispering Shadows.mp3', name: 'Whispering Shadows', img: 'a night sky.png' },
             { id: 'mus3', src: 'Offroad Dreams.MP3', name: 'Offroad Dreams', img: 'a rocky terrain.png' },
             { id: 'mus4', src: 'Flappy Wires.MP3', name: 'Flappy Wires', img: 'cyber city.png' }
         ],    
