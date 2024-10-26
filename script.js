@@ -46,11 +46,11 @@ const gameAssets = {
         { id: 'pillar4', src: 'cyber tower.png', name: 'Cyber Tower' },
     ],
     music: [
-        { id: 'mus1', src: 'Flying Through Clouds.MP3', name: 'Flying Through Clouds' },
-        { id: 'mus2', src: 'Whispering Shadows.MP3', name: 'Whispering Shadows' },
-        { id: 'mus3', src: 'Offroad Dreams.MP3', name: 'Offroad Dreams' },
-        { id: 'mus4', src: 'Flappy Wires.MP3', name: 'Flappy Wires' }
-    ],
+            { id: 'mus1', src: 'Flying Through Clouds.MP3', name: 'Flying Through Clouds', img: 'a day sky.png' },
+            { id: 'mus2', src: 'Whispering Shadows.MP3', name: 'Whispering Shadows', img: 'a night sky.png' },
+            { id: 'mus3', src: 'Offroad Dreams.MP3', name: 'Offroad Dreams', img: 'a rocky terrain.png' },
+            { id: 'mus4', src: 'Flappy Wires.MP3', name: 'Flappy Wires', img: 'cyber city.png' }
+        ],    
     powerups: [
         { id: 'swoosh', src: 'swoosh-powerup.png', name: 'Swoosh Power' },
         { id: 'immunity', src: 'immunity-powerup.png', name: 'Immunity Shield' }
@@ -170,41 +170,20 @@ function setupCustomizationOptions() {
         const div = document.createElement('div');
         div.className = `${type}-option`;
         div.setAttribute('data-id', item.id);
-
-        if (type === 'music') {
-            const text = document.createElement('span');
-            text.textContent = item.name;
-            div.appendChild(text);
-        } else {
             const img = document.createElement('img');
             img.src = item.src;
             img.alt = item.name;
             div.appendChild(img);
-        }
 
         div.addEventListener('click', () => {
             document.querySelectorAll(`.${type}-option`).forEach(opt => opt.classList.remove('selected'));
             div.classList.add('selected');
             gameConfig[`selected${type.charAt(0).toUpperCase() + type.slice(1)}`] = item.id;
-
-            // Stop currently playing music and play the selected music
-            if (type === 'music') {
-                const currentMusic = loadedAssets.music[gameConfig.selectedMusic];
-                if (currentMusic) {
-                    currentMusic.pause();
-                    currentMusic.currentTime = 0; // Reset current time
-                }
-
-                const newMusic = loadedAssets.music[item.id];
-                if (newMusic) {
-                    newMusic.play();
-                }
-            }
         });
 
         return div;
     }
-
+    // Setup all options
     Object.entries(gameAssets).forEach(([category, assets]) => {
         const container = document.getElementById(`${category.slice(0, -1)}-options`);
         if (container) {
@@ -215,7 +194,45 @@ function setupCustomizationOptions() {
         }
     });
 }
+function displayMusicOptions() {
+    const musicAssets = gameAssets.music;
+    musicAssets.forEach(item => {
+        console.log('Creating music option for:', item); // Debug log
+        const container = document.getElementById('music-options');
+        if (container) {
+            const div = document.createElement('div');
+            div.className = 'music-option';
+            div.setAttribute('data-id', item.id);
+            const placeholderImg = document.createElement('img');
+            placeholderImg.src = item.img; 
+            placeholderImg.className = 'music-placeholder';
+            div.appendChild(placeholderImg);
 
+            // Add click event listener to select music
+            div.addEventListener('click', () => {
+                document.querySelectorAll('.music-option').forEach(opt => opt.classList.remove('selected'));
+                div.classList.add('selected');
+                const currentMusic = loadedAssets.music[gameConfig.selectedMusic];
+                if (currentMusic) {
+                    currentMusic.pause();
+                    currentMusic.currentTime = 0;
+                }
+                gameConfig.selectedMusic = item.id;
+                const newMusic = loadedAssets.music[item.id];
+                if (!document.getElementById('musicToggleButton').innerHTML.includes('On')) {
+                    if (newMusic) {
+                        newMusic.play();
+                    }
+                }
+            });
+
+            console.log('Appending music option for:', item.name); // Debug log
+            container.appendChild(div);
+        }
+    });
+}
+
+displayMusicOptions();
 
 function setupBundleOptions() {
     const bundleContainer = document.getElementById('bundle-options');
@@ -236,10 +253,26 @@ function setupBundleOptions() {
 }
 
 function applyBundle(bundle) {
+    // Stop current music if playing
+    const currentMusic = loadedAssets.music[gameConfig.selectedMusic];
+    if (currentMusic) {
+        currentMusic.pause();
+        currentMusic.currentTime = 0;
+    }
+
+    // Apply bundle settings
     gameConfig.selectedBird = bundle.bird;
     gameConfig.selectedBackground = bundle.background;
     gameConfig.selectedPillar = bundle.pillar;
     gameConfig.selectedMusic = bundle.music;
+
+    // Play new music only if music is currently on
+    if (!document.getElementById('musicToggleButton').innerHTML.includes('On')) {
+        const newMusic = loadedAssets.music[bundle.music];
+        if (newMusic) {
+            newMusic.play();
+        }
+    }
 
     // Update UI to reflect bundle selection
     Object.entries(bundle).forEach(([type, id]) => {
@@ -291,7 +324,7 @@ function spawnPowerup() {
         if (powerupType === 'swoosh') {
             nextPowerupSpawn = pipesPassed + Math.floor(Math.random() * 15) + 15; 
         } else {
-            nextPowerupSpawn = pipesPassed + Math.floor(Math.random() * 5) + 5; 
+            nextPowerupSpawn = pipesPassed + Math.floor(Math.random() * 6) + 10; 
         }
     }
 }
@@ -378,7 +411,7 @@ function checkPowerupCollision(bird, powerup) {
 
 function activatePowerup(type) {
     gameConfig.activePowerup = type;
-    gameConfig.powerupDuration = type === 'immunity' ? 300 : 30; // 5 seconds for immunity
+    gameConfig.powerupDuration = type === 'immunity' ? 300 : 50; // 5 seconds for immunity
     
     if (type === 'swoosh') {
         score += 5; // swoosh adds 5 points
@@ -529,12 +562,16 @@ function toggleMusic() {
     const musicButton = document.getElementById('musicToggleButton');
     const currentMusic = loadedAssets.music[gameConfig.selectedMusic];
     
-    if (currentMusic.paused) {
-        currentMusic.play();
+    if (musicButton.innerHTML.includes('On')) {
+        if (currentMusic) {
+            currentMusic.play();
+        }
         musicButton.innerHTML = '<span class="button-icon">🔇</span> Music Off';
     } else {
-        currentMusic.pause();
-        currentMusic.currentTime = 0;
+        if (currentMusic) {
+            currentMusic.pause();
+            currentMusic.currentTime = 0;
+        }
         musicButton.innerHTML = '<span class="button-icon">🎵</span> Music On';
     }
 }
