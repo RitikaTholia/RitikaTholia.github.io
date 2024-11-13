@@ -1,0 +1,258 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+#game-container {
+    position: relative;
+    width: 480px;
+    height: 640px;
+}
+
+.game-title {
+    margin: 60px 0 2rem;
+    text-align: center;
+}
+
+.game-title h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #4ec5ed;
+    text-shadow: 0 0 10px rgba(78, 197, 237, 0.5);
+}
+
+#game-canvas {
+    display: none;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(78, 197, 237, 0.3);
+}
+
+.screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 46, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-button {
+    position: absolute;
+    z-index: 100;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(78, 197, 237, 0.2);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#homeButton {
+    top: 20px;
+    left: 20px;
+}
+
+#musicToggleButton {
+    top: 20px;
+    right: 20px;
+}
+
+.nav-button:hover {
+    background: rgba(78, 197, 237, 0.4);
+}
+
+.button-icon {
+    margin-right: 5px;
+}
+
+.game-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    margin: 15px;
+    cursor: pointer;
+    background: #4ec5ed;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    display: block;
+}
+#customize-button {
+    padding: 15px 33px;
+}
+#info-button {
+    padding: 15px 62px;
+}
+
+.game-button:hover {
+    background: #3ba1c7;
+    transform: translateY(-2px);
+}
+
+#high-score {
+    font-size: 24px;
+    color: #4ec5ed;
+}
+
+#customize-text {
+    margin-top: 50px;
+}
+
+.bundle-section {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#bundle-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.bundle-option {
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(78, 197, 237, 0.1);
+}
+
+.bundle-option:hover {
+    background: rgba(78, 197, 237, 0.2);
+}
+
+.bundle-option.selected {
+    background: rgba(78, 197, 237, 0.4);
+}
+
+.bundle-option img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.bundle-option span {
+    display: block;
+    font-size: 14px;
+}
+
+.customize-section {
+    width: 100%;
+}
+
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.option-group {
+    flex: 1 1 200px;
+}
+
+#bird-options,
+#background-options,
+#pillar-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.option-group div {
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.option-group div.selected {
+    border-color: #4ec5ed;
+    background: rgba(78, 197, 237, 0.2);
+}
+
+.option-group img {
+    width: 60px;
+    height: 50px;
+    object-fit: contain;
+}
+
+h2,
+h3,
+h4 {
+    color: #4ec5ed;
+    margin-bottom: 15px;
+}
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* Internet Explorer */
+    user-select: none; /* Standard syntax */
+}
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2; 
+    left: 0;
+    top: 10%;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+}
+
+.modal-content {
+    background-color: #fefefe ;
+    margin: 15% auto ;
+    padding: 20px;
+    border: 1px solid #888 ;
+    width: 440px ;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    color:#16213e;
+}
+
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+.inline-image {
+    width: 16px;  /* Adjust this size as needed */
+    height: auto;
+    vertical-align: middle;
+    margin-right: 5px;  /* Optional: Add some space between the image and text */
+}
